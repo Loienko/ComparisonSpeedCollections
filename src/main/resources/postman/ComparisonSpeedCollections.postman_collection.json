@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "37cde92d-ce48-419f-bd49-4e8ec06fed2b",
+		"name": "ComparisonSpeedCollections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ArrAndLinkList GET ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8099/lists",
+					"host": [
+						"localhost"
+					],
+					"port": "8099",
+					"path": [
+						"lists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ArrAndLinkList POST insert",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8099/lists/10000",
+					"host": [
+						"localhost"
+					],
+					"port": "8099",
+					"path": [
+						"lists",
+						"10000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ArrAndLinkList PUT UPDATE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8099/lists/10000",
+					"host": [
+						"localhost"
+					],
+					"port": "8099",
+					"path": [
+						"lists",
+						"10000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ArrAndLinkList DELETE DELETE",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8099/lists/10000",
+					"host": [
+						"localhost"
+					],
+					"port": "8099",
+					"path": [
+						"lists",
+						"10000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MapAndSetCollections GET ALL",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8099/lists/10000",
+					"host": [
+						"localhost"
+					],
+					"port": "8099",
+					"path": [
+						"lists",
+						"10000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MapAndSetCollections GET ACTION",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8099/collections",
+					"host": [
+						"localhost"
+					],
+					"port": "8099",
+					"path": [
+						"collections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MapAndSetCollections GET ACTION",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8099/collections/10000",
+					"host": [
+						"localhost"
+					],
+					"port": "8099",
+					"path": [
+						"collections",
+						"10000"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
