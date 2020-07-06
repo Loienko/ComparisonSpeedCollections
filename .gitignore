@@ -17,6 +17,9 @@ target/
 *.iws
 *.iml
 *.ipr
+mvnw.cmd
+.mvn
+mvnw
 
 ### NetBeans ###
 /nbproject/private/
@@ -28,10 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-.mvn
-*.cmd
-mvnw.cmd
-mvnw
-.mvn/wrapper
-
