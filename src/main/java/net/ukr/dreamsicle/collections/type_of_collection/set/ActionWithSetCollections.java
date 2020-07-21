@@ -1,4 +1,4 @@
-package net.ukr.dreamsicle.collections.typeOfCollection.map;
+package net.ukr.dreamsicle.collections.type_of_collection.set;
 
 import net.ukr.dreamsicle.collections.model.entity.NameOfCollections;
 import net.ukr.dreamsicle.collections.model.entity.SetAndMapCollections;
@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 
 @Service
-public class ActionWithMapCollections implements CurrentTime {
+public class ActionWithSetCollections implements CurrentTime {
     public static final String TIME_MS = " [ms]";
 
     public SetAndMapCollections createAndSaveExecuteDataIntoDb(long amount, NameOfCollections nameOfCollections) {
@@ -26,36 +25,34 @@ public class ActionWithMapCollections implements CurrentTime {
     }
 
     public Long insert(long amount) {
-        Map<Integer, Integer> hashMap = getFillMap(new HashMap<>(), amount);
+        HashSet<Integer> hashSet = new HashSet<>();
         Long start = time();
         for (int i = 0; i < amount; i++) {
-            hashMap.put(i, i);
+            hashSet.add(i);
         }
         return time() - start;
     }
 
     public Long remove(long amount) {
-        Map<Integer, Integer> hashMap = getFillMap(new HashMap<>(), amount);
+        HashSet<Integer> hashSet = getFillSet(new HashSet<>(), amount);
         Long start = time();
         for (int i = 0; i < amount; i++) {
-            hashMap.remove(i);
+            hashSet.remove(i);
         }
         return time() - start;
     }
 
     public Long retrieve(long amount) {
-        Map<Integer, Integer> hashMap = getFillMap(new HashMap<>(), amount);
+        HashSet<Integer> hashSet = getFillSet(new HashSet<>(), amount);
         Long start = time();
-        for (int i = 0; i < amount; i++) {
-            hashMap.get(i);
-        }
+
         return time() - start;
     }
 
-    private synchronized Map<Integer, Integer> getFillMap(HashMap<Integer, Integer> hashMap, long amount) {
+    private synchronized HashSet<Integer> getFillSet(HashSet<Integer> hashSet, long amount) {
         for (int i = 0; i < amount; i++) {
-            hashMap.put(i, i);
+            hashSet.add(i);
         }
-        return hashMap;
+        return hashSet;
     }
 }

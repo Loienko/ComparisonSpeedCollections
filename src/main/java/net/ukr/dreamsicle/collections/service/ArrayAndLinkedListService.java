@@ -9,24 +9,34 @@ import net.ukr.dreamsicle.collections.model.entity.ArrayAndLinkedList;
 import net.ukr.dreamsicle.collections.model.entity.NameOfCollections;
 import net.ukr.dreamsicle.collections.model.entity.TypeOfAction;
 import net.ukr.dreamsicle.collections.repository.ArrayAndLinkedListRepository;
-import net.ukr.dreamsicle.collections.typeOfCollection.arrayListAndLinkedList.DeleteElementToArrayListAndLinkedList;
-import net.ukr.dreamsicle.collections.typeOfCollection.arrayListAndLinkedList.InsertElementToArrayAndLinkedList;
-import net.ukr.dreamsicle.collections.typeOfCollection.arrayListAndLinkedList.RetrieveElementToArrayAndLinkedList;
-import net.ukr.dreamsicle.collections.typeOfCollection.arrayListAndLinkedList.UpdateElementToArrayAndLinkedList;
+import net.ukr.dreamsicle.collections.type_of_collection.arrayListAndLinkedList.DeleteElementToArrayListAndLinkedList;
+import net.ukr.dreamsicle.collections.type_of_collection.arrayListAndLinkedList.InsertElementToArrayAndLinkedList;
+import net.ukr.dreamsicle.collections.type_of_collection.arrayListAndLinkedList.RetrieveElementToArrayAndLinkedList;
+import net.ukr.dreamsicle.collections.type_of_collection.arrayListAndLinkedList.UpdateElementToArrayAndLinkedList;
 import net.ukr.dreamsicle.collections.utils.Utils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -59,7 +69,6 @@ public class ArrayAndLinkedListService implements Utils {
     }
 
     public List<ArrayAndLinkedListDTO> retrieve(long amount) {
-        log.info("Start retrieve for items of: {}", amount);
         return arrayAndLinkedListMapper.arrayAndLinkedListToDTOs(getSpeedResultOfAllCollections(
                 CompletableFuture.supplyAsync(
                         () -> createAndSaveData(
@@ -79,7 +88,6 @@ public class ArrayAndLinkedListService implements Utils {
     }
 
     public List<ArrayAndLinkedListDTO> insert(long amount) {
-        log.info("Start insert for items of: {}", amount);
         return arrayAndLinkedListMapper.arrayAndLinkedListToDTOs(getSpeedResultOfAllCollections(
                 CompletableFuture.supplyAsync(
                         () -> createAndInsertData(
@@ -99,7 +107,6 @@ public class ArrayAndLinkedListService implements Utils {
     }
 
     public List<ArrayAndLinkedListDTO> update(long amount) {
-        log.info("Start insert for update of: {}", amount);
         return arrayAndLinkedListMapper.arrayAndLinkedListToDTOs(getSpeedResultOfAllCollections(
                 CompletableFuture.supplyAsync(
                         () -> createAndUpdateData(
@@ -119,7 +126,6 @@ public class ArrayAndLinkedListService implements Utils {
     }
 
     public List<ArrayAndLinkedListDTO> delete(long amount) {
-        log.info("Start delete for items of: {}", amount);
         return arrayAndLinkedListMapper.arrayAndLinkedListToDTOs(getSpeedResultOfAllCollections(
                 CompletableFuture.supplyAsync(
                         () -> createAndDeleteData(
@@ -159,7 +165,6 @@ public class ArrayAndLinkedListService implements Utils {
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public ArrayAndLinkedList createAndSaveData(long amount, NameOfCollections nameOfCollection, List<Integer> list, TypeOfAction typeOfAction) {
-        log.info("Start Save Data: {}, {}, {}", amount, nameOfCollection, typeOfAction);
         return arrayAndLinkedListRepository.saveAndFlush(
                 ArrayAndLinkedList.builder()
                         .amount(amount)
@@ -174,7 +179,6 @@ public class ArrayAndLinkedListService implements Utils {
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public ArrayAndLinkedList createAndInsertData(long amount, NameOfCollections nameOfCollection, List<Integer> list, TypeOfAction typeOfAction) {
-        log.info("Start Insert Data: {}, {}, {}", amount, nameOfCollection, typeOfAction);
         return arrayAndLinkedListRepository.saveAndFlush(
                 ArrayAndLinkedList.builder()
                         .amount(amount)
@@ -189,7 +193,6 @@ public class ArrayAndLinkedListService implements Utils {
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public ArrayAndLinkedList createAndUpdateData(long amount, NameOfCollections nameOfCollection, List<Integer> list, TypeOfAction typeOfAction) {
-        log.info("Start Update Data: {}, {}, {}", amount, nameOfCollection, typeOfAction);
         return arrayAndLinkedListRepository.saveAndFlush(
                 ArrayAndLinkedList.builder()
                         .amount(amount)
@@ -204,7 +207,6 @@ public class ArrayAndLinkedListService implements Utils {
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public ArrayAndLinkedList createAndDeleteData(long amount, NameOfCollections nameOfCollection, List<Integer> list, TypeOfAction typeOfAction) {
-        log.info("Start Delete Data: {}, {}, {}", amount, nameOfCollection, typeOfAction);
         return arrayAndLinkedListRepository.saveAndFlush(
                 ArrayAndLinkedList.builder()
                         .amount(amount)
@@ -215,5 +217,15 @@ public class ArrayAndLinkedListService implements Utils {
                         .created(Timestamp.valueOf(LocalDateTime.now()))
                         .typeOfAction(typeOfAction)
                         .build());
+    }
+
+    @PostConstruct
+    public void postConstructMethod() {
+        log.warn("Spring Bean Post Construct Annotation Method ");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        log.warn("Spring Bean Pre Destroy Annotation Method");
     }
 }

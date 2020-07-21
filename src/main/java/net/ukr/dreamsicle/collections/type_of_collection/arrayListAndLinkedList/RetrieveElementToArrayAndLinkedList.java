@@ -1,5 +1,6 @@
-package net.ukr.dreamsicle.collections.typeOfCollection.arrayListAndLinkedList;
+package net.ukr.dreamsicle.collections.type_of_collection.arrayListAndLinkedList;
 
+import lombok.extern.slf4j.Slf4j;
 import net.ukr.dreamsicle.collections.utils.ActionWithTypeOfWorkCollections;
 import net.ukr.dreamsicle.collections.utils.CurrentTime;
 import org.springframework.stereotype.Service;
@@ -7,15 +8,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InsertElementToArrayAndLinkedList implements ActionWithTypeOfWorkCollections<List<Integer>> {
+@Slf4j
+public class RetrieveElementToArrayAndLinkedList implements ActionWithTypeOfWorkCollections<List<Integer>> {
     CurrentTime currentTime = new CurrentTime() {
     };
 
     @Override
     public Long startOfTheList(List<Integer> list, long amount) {
         Long start = currentTime.time();
-        for (int i = 0; i < amount; i++) {
-            list.add(0, i);
+        for (long i = 0; i < amount; i++) {
+            list.get((int) i);
         }
         return currentTime.time() - start;
     }
@@ -23,8 +25,8 @@ public class InsertElementToArrayAndLinkedList implements ActionWithTypeOfWorkCo
     @Override
     public Long middleOfTheList(List<Integer> list, long amount) {
         Long start = currentTime.time();
-        for (int i = 0; i < amount; i++) {
-            list.add(list.size() / 2, i);
+        for (long i = 0; i < amount; i++) {
+            list.get(list.size() / 2);
         }
         return currentTime.time() - start;
     }
@@ -32,8 +34,8 @@ public class InsertElementToArrayAndLinkedList implements ActionWithTypeOfWorkCo
     @Override
     public Long endOfTheList(List<Integer> list, long amount) {
         Long start = currentTime.time();
-        for (int i = 0; i < amount; i++) {
-            list.add(i);
+        for (long i = amount - 1; i >= 0; i--) {
+            list.get((int) i);
         }
         return currentTime.time() - start;
     }

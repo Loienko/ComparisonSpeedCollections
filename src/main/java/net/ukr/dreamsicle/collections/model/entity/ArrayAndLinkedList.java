@@ -36,4 +36,6 @@ public class ArrayAndLinkedList {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_of_action")
     private TypeOfAction typeOfAction;
+
+    
 }

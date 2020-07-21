@@ -7,8 +7,8 @@ import net.ukr.dreamsicle.collections.model.dto.SetAndMapCollectionsDTO;
 import net.ukr.dreamsicle.collections.model.dto.SetAndMapCollectionsMapper;
 import net.ukr.dreamsicle.collections.model.entity.SetAndMapCollections;
 import net.ukr.dreamsicle.collections.repository.SetAndMapRepository;
-import net.ukr.dreamsicle.collections.typeOfCollection.map.ActionWithMapCollections;
-import net.ukr.dreamsicle.collections.typeOfCollection.set.ActionWithSetCollections;
+import net.ukr.dreamsicle.collections.type_of_collection.map.ActionWithMapCollections;
+import net.ukr.dreamsicle.collections.type_of_collection.set.ActionWithSetCollections;
 import net.ukr.dreamsicle.collections.utils.Utils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,12 +36,10 @@ public class SetAndMapService implements Utils {
     private final ActionWithSetCollections actionWithSetCollections;
 
     public Page<SetAndMapCollectionsDTO> retrieveAllData(Pageable pageable) {
-        log.info("Start retrieveAllData for SetAndMap for page: {}", pageable);
         return setAndMapCollectionsMapper.setAndMapCollectionsDTOs(setAndMapRepository.findAll(pageable));
     }
 
     public List<SetAndMapCollectionsDTO> allActionWithCollections(long amount) {
-        log.info("Start allActionWithCollections for number of element: {}", amount);
         return setAndMapCollectionsMapper.arrayAndLinkedListToDTOs(getResultActionWithSetAndMapCollections(
                 CompletableFuture.supplyAsync(
                         () -> actionWithMapCollections.createAndSaveExecuteDataIntoDb(amount, nameOfCollectionService.getNameOfCollections(MAP)),
